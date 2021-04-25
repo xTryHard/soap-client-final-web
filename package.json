@@ -1,0 +1,20 @@
+{
+  "name": "final-soap-client",
+  "version": "1.0.0",
+  "description": "Nodejs SOAP Client Final Project",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "start": "nodemon index.js"
+  },
+  "author": "xTryHard",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "morgan": "^1.10.0",
+    "soap": "^0.37.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
