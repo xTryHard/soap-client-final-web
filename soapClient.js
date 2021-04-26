@@ -9,11 +9,18 @@ class SoapClient {
         this.client = soap.createClientAsync(url);
     }
 
+    // test() {
+    //     soap.createClientAsync('http://192.168.0.101:7000/ws/FormWebService?wsdl').then((client) => {
+    //         return client.getFormsAsync({
+    //             arg0: 'admin'
+    //         });
+    //     }).then((result) => console.log(result[0].return));
+    // }
 
     getFormsByUsername(username) {
         this.client.then((clientReference) => {
-            return client.getFormsByUsername({arg0: username});
-        }).then(result => {return result[0]});
+            return clientReference.getFormsAsync({arg0: username});
+        }).then((result) => {console.log(result[0].return)});
     }
 
     postForm(form) {
@@ -22,4 +29,6 @@ class SoapClient {
         }).then(result => {return result[0]});
     }
 }
+
+module.exports = SoapClient;
 
