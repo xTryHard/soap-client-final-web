@@ -5,6 +5,11 @@
 }
 
 #title {
-    margin-top: 60px;
-    margin-bottom: 50px;
+    margin-top: 70px;
+    margin-bottom: 70px;
+}
+
+.c-border {
+    border: dotted 1px #333;
+    border-radius: 5px;
 }

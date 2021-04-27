@@ -46,14 +46,14 @@
     <!-- End Header -->
 
     <main id="main">
-      <div class="container pt-3" id="title">
+      <div class="container pt-3 c-border" id="title">
         <h1 class="text-center">Registrar Formulario</h1>
       </div>
-      <div class="container pt-3">
+      <div class="container pt-3 c-border">
         <form>
           <div class="form-group row">
             <label for="inputName" class="col-sm-2 col-form-label"
-              >Nombre</label
+              ><b>Nombre</b></label
             >
             <div class="col-sm-10">
               <input
@@ -66,7 +66,7 @@
           </div>
           <div class="form-group row">
             <label for="inputLastName" class="col-sm-2 col-form-label"
-              >Apellido</label
+              ><b>Apellido</b></label
             >
             <div class="col-sm-10">
               <input
@@ -79,7 +79,7 @@
           </div>
           <div class="form-group row">
             <label for="inputArea" class="col-sm-2 col-form-label"
-              >Sector</label
+              ><b>Sector</b></label
             >
             <div class="col-sm-10">
               <input
@@ -91,7 +91,9 @@
             </div>
           </div>
           <div class="form-group row">
-            <label for="selectSchoolLevel" class="col-sm-2 col-form-label">Nivel académico</label>
+            <label for="selectSchoolLevel" class="col-sm-2 col-form-label"
+              ><b>Nivel académico</b></label
+            >
             <div class="col-sm-10">
               <select class="form-control" id="selectSchoolLevel">
                 <option>Básico</option>
@@ -104,10 +106,11 @@
           </div>
           <div class="form-group row">
             <label for="inputLatitude" class="col-sm-2 col-form-label"
-              >Latitud</label
+              ><b>Latitud</b></label
             >
             <div class="col-sm-10">
-              <input disabled
+              <input
+                disabled
                 type="text"
                 class="form-control"
                 id="inputLatitude"
@@ -117,10 +120,11 @@
           </div>
           <div class="form-group row">
             <label for="inputLongitude" class="col-sm-2 col-form-label"
-              >Longitud</label
+              ><b>Longitud</b></label
             >
             <div class="col-sm-10">
-              <input disabled
+              <input
+                disabled
                 type="text"
                 class="form-control"
                 id="inputLongitude"
@@ -130,13 +134,16 @@
           </div>
           <div class="form-group row">
             <label for="inputPhoto" class="col-sm-2 col-form-label"
-              >Foto</label
+              ><b>Foto</b></label
             >
             <div class="col-sm-1">
-                <button class="btn btn-primary btn-md"><i class="fas fa-camera"></i></button>
+              <a class="btn btn-primary btn-md" href="#" data-toggle="modal" data-target="#exampleModal">
+                <i class="fas fa-camera"></i>
+              </a>
             </div>
             <div class="col-sm-9">
-              <input disabled
+              <input
+                disabled
                 type="text"
                 class="form-control"
                 id="inputPhoto"
@@ -144,9 +151,46 @@
               />
             </div>
           </div>
+          <br>
+          <br>
+          <div class="form-group text-center">
+            <button class="btn btn-success btn-lg">Enviar</button>
+            <button class="btn btn-danger btn-lg">Cancelar</button>
+          </div>
         </form>
       </div>
     </main>
+
+    <!-- Modal -->
+
+  <div class="center">
+    <div class="modal show-modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Foto</h5>
+            <button id="close2" type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <video id="camera" style="max-width: 100%;
+            height: auto;" autoplay playsinline></video>
+            <img id="imgtest" src="" alt="" style="display: none;">
+            <canvas id="canvas" class="d-none"></canvas>
+          </div>
+          <div class="modal-footer">
+            <button id="close" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            <button id="retake" type="button" class="btn btn-info" style="display:none;">Retomar</button>
+            <button id="savePic" type="button" class="btn btn-success" style="display:none;">Guardar</button>
+
+            <button id="photo" type="button" class="btn btn-primary">Tomar foto</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
     <script
       src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
@@ -163,6 +207,9 @@
       integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
       crossorigin="anonymous"
     ></script>
-    <script src="https://kit.fontawesome.com/156ff56ddf.js" crossorigin="anonymous"></script>
+    <script
+      src="https://kit.fontawesome.com/156ff56ddf.js"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>
