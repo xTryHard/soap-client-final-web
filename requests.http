@@ -1,0 +1,13 @@
+POST http://localhost:3000/forms HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Ay",
+    "lastName": "diomio",
+    "area": "Cuale vacacione?",
+    "schoolLevel": "Doctorado",
+    "latitude": "19",
+    "longitude": "20",
+    "user": "admin",
+    "photoBase64": "Sin quillarse"
+}

@@ -25,8 +25,8 @@ class SoapClient {
 
     postForm(form) {
         this.client.then((clientReference) => {
-            return clientReference.postFormAsync({arg0: form});
-        }).then(result => {return result[0]});
+            return clientReference.createFormAsync({arg0: form});
+        }).then(result => {console.log(result[0].return)});
     }
 }
 

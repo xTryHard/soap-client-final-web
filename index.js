@@ -13,12 +13,18 @@ app.use(morgan('dev'));
 app.get('/', (req, res) => {
     res.send('Welcome to Summoners Rift');
 });
+
 app.get('/test', (req, res) => {
     soapClient.test();
 });
+
 app.get('/forms/:username', (req, res) => {
     soapClient.getFormsByUsername(req.params.username);
-    
+});
+
+app.post('/forms', (req, res) => {
+    console.log("Received:");
+    soapClient.postForm(req.body);
 });
 
 app.listen(3000, () => {
