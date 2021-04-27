@@ -6,12 +6,17 @@ const morgan = require('morgan');
 const SoapClient = require('./soapClient');
 
 const soapClient = new SoapClient('http://192.168.0.101:7000/ws/FormWebService?wsdl');
+const path = require('path');
+
+app.use(express.static(path.join(__dirname, 'public/html')));
+app.use(express.static(path.join(__dirname, 'public/css')));
+app.use(express.static(path.join(__dirname, 'public/js')));
 
 app.use(express.json());
 app.use(morgan('dev'));
 
 app.get('/', (req, res) => {
-    res.send('Welcome to Summoners Rift');
+    res.sendFile('/html/index.html');
 });
 
 app.get('/test', (req, res) => {
