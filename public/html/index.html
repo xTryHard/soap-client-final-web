@@ -12,11 +12,13 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="styles.css" />
+
+    <script type="text/javascript" src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script>
   </head>
 
   <body>
     <header id="header" class="fixed-top" th:fragment="header">
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-info">
         <a class="navbar-brand" href="#">Cliente SOAP</a>
         <button
           class="navbar-toggler"
@@ -60,7 +62,7 @@
                 type="text"
                 class="form-control"
                 id="inputName"
-                placeholder="Nombre"
+                placeholder="Nombre" required
               />
             </div>
           </div>
@@ -73,7 +75,7 @@
                 type="text"
                 class="form-control"
                 id="inputLastName"
-                placeholder="Apellido"
+                placeholder="Apellido" required
               />
             </div>
           </div>
@@ -86,7 +88,7 @@
                 type="text"
                 class="form-control"
                 id="inputArea"
-                placeholder="Santiago"
+                placeholder="Santiago" required
               />
             </div>
           </div>
@@ -95,12 +97,13 @@
               ><b>Nivel académico</b></label
             >
             <div class="col-sm-10">
-              <select class="form-control" id="selectSchoolLevel">
-                <option>Básico</option>
-                <option>Medio</option>
-                <option>Universitario</option>
-                <option>Postgrado</option>
-                <option>Doctorado</option>
+              <select class="form-control" id="selectSchoolLevel" required>
+                <option value="" selected disabled hidden>Seleccione</option>
+                <option value="Básico">Básico</option>
+                <option value="Medio">Medio</option>
+                <option value="Universitario">Universitario</option>
+                <option value="Postgrado">Postgrado</option>
+                <option value="Doctorado">Doctorado</option>
               </select>
             </div>
           </div>
@@ -114,7 +117,7 @@
                 type="text"
                 class="form-control"
                 id="inputLatitude"
-                placeholder="Santiago"
+                placeholder="Santiago" required
               />
             </div>
           </div>
@@ -128,7 +131,7 @@
                 type="text"
                 class="form-control"
                 id="inputLongitude"
-                placeholder="Santiago"
+                placeholder="Santiago" required
               />
             </div>
           </div>
@@ -137,7 +140,7 @@
               ><b>Foto</b></label
             >
             <div class="col-sm-1">
-              <a class="btn btn-primary btn-md" href="#" data-toggle="modal" data-target="#exampleModal">
+              <a id="openCamera" class="btn btn-primary btn-md" href="#" data-toggle="modal" data-target="#exampleModal">
                 <i class="fas fa-camera"></i>
               </a>
             </div>
@@ -147,7 +150,7 @@
                 type="text"
                 class="form-control"
                 id="inputPhoto"
-                placeholder="base64"
+                placeholder="base64" 
               />
             </div>
           </div>
@@ -161,7 +164,9 @@
       </div>
     </main>
 
+    <audio id="snapSound" src="audio/snap.wav" preload = "auto"></audio>
     <!-- Modal -->
+
 
   <div class="center">
     <div class="modal show-modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -211,5 +216,90 @@
       src="https://kit.fontawesome.com/156ff56ddf.js"
       crossorigin="anonymous"
     ></script>
+    <!-- <script type="module" src="app.js"></script> -->
+    
+    <script>
+
+      document.addEventListener('DOMContentLoaded', () => {
+        
+      const webcamElement = document.getElementById('camera');
+      const canvasElement = document.getElementById('canvas');
+      const snapSoundElement = document.getElementById('snapSound');
+
+
+      const webcam = new Webcam(webcamElement, 'user', canvasElement, snapSoundElement);
+
+
+      document.getElementById('openCamera').addEventListener('click', () => {
+
+        webcam.start()
+          .then(result => {
+            console.log("webcam started");
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      });
+      let picBase64 = '';
+      document.getElementById('photo').addEventListener('click', () => {
+
+        picBase64 = webcam.snap();
+        document.getElementById('photo').style.display = 'none';
+        document.getElementById('retake').style.display = 'inline-block';
+        document.getElementById('savePic').style.display = 'inline-block';
+
+        document.getElementById('imgtest').setAttribute('src', picBase64);
+        webcamElement.style.display = 'none'
+        document.getElementById('imgtest').style.display = 'block'
+        console.log(picBase64);
+      });
+
+      document.getElementById('close').addEventListener('click', () => {
+        webcam.stop();
+        document.getElementById('photo').style.display = 'inline-block';
+        document.getElementById('retake').style.display = 'none';
+        document.getElementById('savePic').style.display = 'none';
+        webcamElement.style.display = 'block'
+        document.getElementById('imgtest').style.display = 'none'
+      });
+
+      document.getElementById('close2').addEventListener('click', () => {
+        webcam.stop();
+        document.getElementById('photo').style.display = 'inline-block';
+        document.getElementById('retake').style.display = 'none';
+        document.getElementById('savePic').style.display = 'none';
+        webcamElement.style.display = 'block'
+        document.getElementById('imgtest').style.display = 'none'
+      });
+
+      document.getElementById('retake').addEventListener('click', () => {
+        document.getElementById('imgtest').style.display = 'none'
+        webcamElement.style.display = 'block'
+        document.getElementById('photo').style.display = 'inline-block';
+        document.getElementById('retake').style.display = 'none';
+        document.getElementById('savePic').style.display = 'none';
+
+      });
+
+      document.getElementById('savePic').addEventListener('click', () => {
+        $("#exampleModal").modal('hide');
+        document.getElementById('imgtest').style.display = 'none';
+        webcamElement.style.display = 'block'
+        document.getElementById('photo').style.display = 'inline-block';
+        document.getElementById('retake').style.display = 'none';
+        document.getElementById('savePic').style.display = 'none';
+        document.getElementById('photob64').value = '';
+        document.getElementById('photob64').value = picBase64;
+        webcam.stop();
+        checkButtonCreate();
+      });
+
+      document.addEventListener('click', (e) => {
+        console.log(e);
+      });
+      });
+  
+      
+    </script>
   </body>
 </html>

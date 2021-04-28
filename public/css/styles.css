@@ -7,9 +7,18 @@
 #title {
     margin-top: 70px;
     margin-bottom: 70px;
+    color:#333;
 }
 
 .c-border {
     border: dotted 1px #333;
     border-radius: 5px;
+}
+
+body {
+    background-color: #EEFBFB;
+}
+
+input:valid, select:valid {
+    background-color: #E3FBE3;
 }
