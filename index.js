@@ -5,7 +5,7 @@ const app = express();
 const morgan = require('morgan');
 const SoapClient = require('./soapClient');
 
-const soapClient = new SoapClient('http://192.168.0.101:7000/ws/FormWebService?wsdl');
+const soapClient = new SoapClient('https://final.theitshop.ninja/ws/FormWebService?wsdl');
 const path = require('path');
 
 app.use(express.static(path.join(__dirname, 'public/html')));
@@ -29,7 +29,9 @@ app.get('/forms/:username', (req, res) => {
 
 app.post('/forms', (req, res) => {
     console.log("Received:");
-    soapClient.postForm(req.body);
+    const form = req.body;
+    console.log(form)
+    soapClient.postForm(form);
 });
 
 app.listen(3000, () => {
