@@ -1,4 +1,3 @@
-
 const inputName = document.getElementById('inputName');
 const inputLastName = document.getElementById('inputLastName');
 const inputArea = document.getElementById('inputArea');
@@ -15,8 +14,8 @@ const cancelForm = document.getElementById('cancelForm');
 
 function checkSendForm() {
 
-    if (inputName.value != "" && inputLastName.value != "" && inputArea.value != "" && selectSchoolLevel.value != "Seleccione"
-    && inputPhoto.value != "") {
+    if (inputName.value != "" && inputLastName.value != "" && inputArea.value != "" && selectSchoolLevel.value != "Seleccione" &&
+        inputPhoto.value != "") {
         sendForm.disabled = false;
     } else {
         console.log(".....")
@@ -44,7 +43,7 @@ sendForm.addEventListener('click', () => {
         user: 'admin',
         photoBase64: inputPhoto.value
     }
-    fetch('http://localhost:3000/forms', {
+    fetch('https://final-soap.theitshop.ninja/forms', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
