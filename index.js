@@ -12,9 +12,7 @@ app.use(express.static(path.join(__dirname, 'public/html')));
 app.use(express.static(path.join(__dirname, 'public/css')));
 app.use(express.static(path.join(__dirname, 'public/js')));
 
-app.use(express.json({
-    limit: "10mb"
-}));
+app.use(express.json());
 // app.use(express.raw({
 //     limit: "10mb"
 // }));
@@ -22,6 +20,10 @@ app.use(morgan('dev'));
 
 app.get('/', (req, res) => {
     res.sendFile('/html/index.html');
+});
+
+app.get('/list-forms', (req, res) => {
+    res.sendfile('/html/listForms.html');
 });
 
 app.get('/test', (req, res) => {
