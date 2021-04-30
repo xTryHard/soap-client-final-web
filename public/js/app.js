@@ -41,7 +41,7 @@ sendForm.addEventListener('click', () => {
         latitude: inputLatitude.value,
         longitude: inputLongitude.value,
         user: 'admin',
-        photoBase64: inputPhoto.value
+        photoBase64: 'prueba' /*inputPhoto.value*/
     }
     fetch('https://final-soap.theitshop.ninja/forms', {
         method: 'POST',
