@@ -15,6 +15,7 @@ app.use(express.static(path.join(__dirname, 'public/js')));
 app.use(express.json({
     limit: "10mb"
 }));
+app.use(express.urlencoded());
 app.use(morgan('dev'));
 
 app.get('/', (req, res) => {
