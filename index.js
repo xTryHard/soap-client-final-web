@@ -13,7 +13,7 @@ app.use(express.static(path.join(__dirname, 'public/css')));
 app.use(express.static(path.join(__dirname, 'public/js')));
 
 app.use(express.json({
-    limit: 1024 * 1024
+    limit: "10mb"
 }));
 app.use(morgan('dev'));
 
