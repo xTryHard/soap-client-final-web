@@ -41,8 +41,8 @@ sendForm.addEventListener('click', () => {
         schoolLevel: selectSchoolLevel.value,
         latitude: inputLatitude.value,
         longitude: inputLongitude.value,
-        user: 'admin',
-        photoBase64: 'prueba' /*inputPhoto.value*/
+        user: localStorage.getItem('username'),
+        photoBase64: inputPhoto.value
     }
     fetch('http://localhost:3000/forms', {
         method: 'POST',

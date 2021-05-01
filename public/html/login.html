@@ -8,7 +8,9 @@
   <title>Cliente SOAP</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+
   <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="stylesheet" href="/css/login.css" />
 
   <script type="text/javascript" src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script>
 </head>
@@ -37,30 +39,23 @@
                 </span>
               </div>
 
-              <form class="login100-form validate-form" method="post" action="/validate-login">
+              <form class="login100-form validate-form">
                 <div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
                   <span class="label-input100">Usuario</span>
-                  <input class="input100" type="text" name="username" placeholder="Ingrese nombre de usuario" required>
+                  <input id="username" class="input100" type="text" name="username"
+                    placeholder="Ingrese nombre de usuario" required>
                   <span class="focus-input100"></span>
                 </div>
 
                 <div class="wrap-input100 validate-input m-b-18" data-validate="Password is required">
                   <span class="label-input100">Contraseña</span>
-                  <input class="input100" type="password" name="password" placeholder="**************" required>
+                  <input id="password" class="input100" type="password" name="password" placeholder="**************"
+                    required>
                   <span class="focus-input100"></span>
                 </div>
 
-                <div class="flex-sb-m w-full p-b-30">
-                  <div class="contact100-form-checkbox">
-                    <input class="input-checkbox100" id="ckb1" type="checkbox" name="rememberMe">
-                    <label class="label-checkbox100" for="ckb1">
-                      Recuérdame
-                    </label>
-                  </div>
-                </div>
-
                 <div class="container-login100-form-btn text-center">
-                  <button class="login100-form-btn">
+                  <button id="loginBtn" class="login100-form-btn">
                     Iniciar Sesión
                   </button>
                 </div>
@@ -82,110 +77,32 @@
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
   </script>
   <script src="https://kit.fontawesome.com/156ff56ddf.js" crossorigin="anonymous"></script>
-  <script type="module" src="/js/app.js"></script>
-
   <script>
-    let id,
-      cantidad = 0;
-    //Indica las opciones para llamar al GPS.
-    const opcionesGPS = {
-      enableHighAccuracy: true,
-      timeout: 5000,
-      maximumAge: 0,
-    };
-
-    $(document).ready(function () {
-      console.log("Ejemplo de Geolocalizacion");
-
-      //Obteniendo la referencia directa.
-      navigator.geolocation.getCurrentPosition(
-        function (geodata) {
-          const coordenadas = geodata.coords;
-          document.getElementById("inputLatitude").value = coordenadas.latitude;
-          document.getElementById("inputLongitude").value = coordenadas.longitude;
+    document.getElementById('loginBtn').addEventListener('click', (e) => {
+      fetch('http://localhost:3000/validate-login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
         },
-        function () {
-          $("#posicionGps").text("No permite el acceso del API GEO");
-        },
-        opcionesGPS
-      );
-    });
+        body: JSON.stringify({
+          username: document.getElementById('username').value,
+          password: document.getElementById('password').value
+        })
+      }).then(result => {
+        console.log(result);
+        return result.json();
+        // if (result.status === 200) {
+        //   console.log('si');
+        //   window.location.href = '/';
+        // }
+      }).then(result => {
+        if (result.status === 200) {
+          localStorage.setItem('username', result.username);
+          window.location.href = "/";
+        }
+      }).catch(err => console.log(err));
 
-    document.addEventListener("DOMContentLoaded", () => {
-      const webcamElement = document.getElementById("camera");
-      const canvasElement = document.getElementById("canvas");
-      const snapSoundElement = document.getElementById("snapSound");
-
-      const webcam = new Webcam(
-        webcamElement,
-        "user",
-        canvasElement,
-        snapSoundElement
-      );
-
-      document.getElementById("openCamera").addEventListener("click", () => {
-        webcam
-          .start()
-          .then((result) => {
-            console.log("webcam started");
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      });
-      let picBase64 = "";
-      document.getElementById("photo").addEventListener("click", () => {
-        picBase64 = webcam.snap();
-        document.getElementById("photo").style.display = "none";
-        document.getElementById("retake").style.display = "inline-block";
-        document.getElementById("savePic").style.display = "inline-block";
-
-        document.getElementById("imgtest").setAttribute("src", picBase64);
-        webcamElement.style.display = "none";
-        document.getElementById("imgtest").style.display = "block";
-        console.log(picBase64);
-      });
-
-      document.getElementById("close").addEventListener("click", () => {
-        webcam.stop();
-        document.getElementById("photo").style.display = "inline-block";
-        document.getElementById("retake").style.display = "none";
-        document.getElementById("savePic").style.display = "none";
-        webcamElement.style.display = "block";
-        document.getElementById("imgtest").style.display = "none";
-      });
-
-      document.getElementById("close2").addEventListener("click", () => {
-        webcam.stop();
-        document.getElementById("photo").style.display = "inline-block";
-        document.getElementById("retake").style.display = "none";
-        document.getElementById("savePic").style.display = "none";
-        webcamElement.style.display = "block";
-        document.getElementById("imgtest").style.display = "none";
-      });
-
-      document.getElementById("retake").addEventListener("click", () => {
-        document.getElementById("imgtest").style.display = "none";
-        webcamElement.style.display = "block";
-        document.getElementById("photo").style.display = "inline-block";
-        document.getElementById("retake").style.display = "none";
-        document.getElementById("savePic").style.display = "none";
-      });
-
-      document.getElementById("savePic").addEventListener("click", () => {
-        document.getElementById("inputPhoto").value = picBase64;
-        $("#exampleModal").modal("hide");
-        document.getElementById("imgtest").style.display = "none";
-        webcamElement.style.display = "block";
-        document.getElementById("photo").style.display = "inline-block";
-        document.getElementById("retake").style.display = "none";
-        document.getElementById("savePic").style.display = "none";
-        webcam.stop();
-      });
-
-      document.addEventListener("click", (e) => {
-        console.log(e);
-      });
+      e.preventDefault();
     });
   </script>
 </body>

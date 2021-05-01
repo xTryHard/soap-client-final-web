@@ -12,7 +12,9 @@ const path = require('path');
 
 app.use(express.static('public'))
 
-app.use(express.json());
+app.use(express.json({
+    limit: '50mb'
+}));
 // app.use(express.raw({
 //     limit: "10mb"
 // }));
@@ -21,26 +23,25 @@ app.use(cookieParser());
 
 function validate(req, res, next) {
     if (req.cookies.user == null) {
-        res.cookies('user', 'test', )
+        console.log('si');
         res.redirect('/login');
     } else {
+        console.log('siiiiii');
         next();
     }
-        
+
 }
 
-app.use(validate);
 
-app.get('/', (req, res) => {
-    res/*.cookie('test', 'test', {
-        maxAge: 10800
-    })*/.sendFile('/public/html/index.html', {
+app.get('/', validate, (req, res) => {
+    res.sendFile('/public/html/index.html', {
         root: __dirname
     });
 });
 
-app.get('/validate-login', async (req, res) => {
+app.post('/validate-login', async (req, res, next) => {
     const credentials = req.body;
+    console.log(credentials)
     let result = await fetch('http://192.168.0.101:7000/api/v1/login/', {
         method: 'POST',
         headers: {
@@ -56,8 +57,14 @@ app.get('/validate-login', async (req, res) => {
     console.log(result);
 
     if (result.token != null && result.expires_in != null) {
-        sessionStorage.setItem('user', credentials.username);
-        res.redirect('/');
+        res.cookie('user', credentials.username, {
+            maxAge: 86400000
+        });
+        res.json({
+            status: 200,
+            username: credentials.username
+        });
+        console.log('Cookie created successfully');
     } else {
         res.redirect('/login');
     }
