@@ -21,45 +21,46 @@ app.use(cookieParser());
 
 function validate(req, res, next) {
     if (req.cookies.user == null) {
+        res.cookies('user', 'test', )
         res.redirect('/login');
+    } else {
+        next();
     }
-    console.log(req.cookies);
-    next();
+        
 }
 
 app.use(validate);
 
 app.get('/', (req, res) => {
-    res.cookie('test', 'test', {maxAge: 10800});
-
-
-    res.sendFile('/public/html/index.html', {
+    res/*.cookie('test', 'test', {
+        maxAge: 10800
+    })*/.sendFile('/public/html/index.html', {
         root: __dirname
     });
 });
 
 app.get('/validate-login', async (req, res) => {
-   const credentials = req.body;
-   let result = await fetch('http://192.168.0.101:7000/api/v1/login/', {
-       method: 'POST',
-       headers: {
-           'Content-Type': 'application/json'
-       },
-       body: JSON.stringify({
-           username: credentials.username,
-           password: credentials.password
-       })
-   });
+    const credentials = req.body;
+    let result = await fetch('http://192.168.0.101:7000/api/v1/login/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            username: credentials.username,
+            password: credentials.password
+        })
+    });
 
-   result = await result.json();
-   console.log(result);
+    result = await result.json();
+    console.log(result);
 
-   if (result.token != null && result.expires_in != null) {
-       sessionStorage.setItem('user', credentials.username);
-       res.redirect('/');
-   } else {
-       res.redirect('/login');
-   }
+    if (result.token != null && result.expires_in != null) {
+        sessionStorage.setItem('user', credentials.username);
+        res.redirect('/');
+    } else {
+        res.redirect('/login');
+    }
 });
 
 app.get('/login', (req, res) => {
