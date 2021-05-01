@@ -8,9 +8,7 @@ const SoapClient = require('./soapClient');
 const soapClient = new SoapClient('https://final.theitshop.ninja/ws/FormWebService?wsdl');
 const path = require('path');
 
-app.use(express.static(path.join(__dirname, 'public/html')));
-app.use(express.static(path.join(__dirname, 'public/css')));
-app.use(express.static(path.join(__dirname, 'public/js')));
+app.use(express.static('public'))
 
 app.use(express.json());
 // app.use(express.raw({
@@ -19,11 +17,15 @@ app.use(express.json());
 app.use(morgan('dev'));
 
 app.get('/', (req, res) => {
-    res.sendFile('/html/index.html');
+    res.sendFile('/public/html/index.html', {
+        root: __dirname
+    });
 });
 
-app.get('/list-forms', (req, res) => {
-    res.sendfile('/html/listForms.html');
+app.get('/list', (req, res) => {
+    res.sendFile('/public/html/listForms.html', {
+        root: __dirname
+    });
 });
 
 app.get('/test', (req, res) => {
