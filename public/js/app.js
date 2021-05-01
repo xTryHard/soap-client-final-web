@@ -34,6 +34,7 @@ savePic.addEventListener('click', checkSendForm);
 
 sendForm.addEventListener('click', () => {
     const form = {
+        id: 'none',
         name: inputName.value,
         lastName: inputLastName.value,
         area: inputArea.value,
@@ -43,7 +44,7 @@ sendForm.addEventListener('click', () => {
         user: 'admin',
         photoBase64: 'prueba' /*inputPhoto.value*/
     }
-    fetch('https://final-soap.theitshop.ninja/forms', {
+    fetch('http://localhost:3000/forms', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

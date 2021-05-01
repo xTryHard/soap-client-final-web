@@ -6,9 +6,7 @@ class SoapClient {
 
     constructor(url) {
         this.url = url;
-        this.client = soap.createClientAsync(url, {
-            forceSoap12Headers: true
-        });
+        this.client = soap.createClientAsync(url);
     }
 
     // test() {
@@ -20,9 +18,13 @@ class SoapClient {
     // }
 
     getFormsByUsername(username) {
-        this.client.then((clientReference) => {
+      return this.client.then((clientReference) => {
             return clientReference.getFormsAsync({arg0: username});
-        }).then((result) => {console.log(result[0].return)});
+        }).then((result) => {
+            if (result[0] != null) {
+                return result[0].return;
+            }
+        });
     }
 
     postForm(form) {

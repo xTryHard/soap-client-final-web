@@ -25,127 +25,85 @@
             <a class="nav-link" href="/">Registrar formulario</a>
           </li>
           <li class="nav-item active">
-            <a class="nav-link" href="/html/listForms.html">Listar formulario<span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="/list">Listar formulario<span class="sr-only">(current)</span></a>
           </li>
         </ul>
       </div>
     </nav>
   </header>
   <!-- End Header -->
-
   <main id="main">
-    <div class="container pt-3 c-border" id="title">
-      <h1 class="text-center">Listar Formularios</h1>
-    </div>
-    <div class="container pt-3 c-border">
-      <form>
-        <div class="form-group row">
-          <label for="inputName" class="col-sm-2 col-form-label"><b>Nombre</b></label>
-          <div class="col-sm-10">
-            <input type="text" class="form-control" id="inputName" placeholder="Nombre" required />
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="inputLastName" class="col-sm-2 col-form-label"><b>Apellido</b></label>
-          <div class="col-sm-10">
-            <input type="text" class="form-control" id="inputLastName" placeholder="Apellido" required />
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="inputArea" class="col-sm-2 col-form-label"><b>Sector</b></label>
-          <div class="col-sm-10">
-            <input type="text" class="form-control" id="inputArea" placeholder="Santiago" required />
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="selectSchoolLevel" class="col-sm-2 col-form-label"><b>Nivel académico</b></label>
-          <div class="col-sm-10">
-            <select class="form-control" id="selectSchoolLevel" required>
-              <option value="" selected disabled hidden>Seleccione</option>
-              <option value="Básico">Básico</option>
-              <option value="Medio">Medio</option>
-              <option value="Universitario">Universitario</option>
-              <option value="Postgrado">Postgrado</option>
-              <option value="Doctorado">Doctorado</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="inputLatitude" class="col-sm-2 col-form-label"><b>Latitud</b></label>
-          <div class="col-sm-10">
-            <input disabled type="text" class="form-control" id="inputLatitude" placeholder="Santiago" />
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="inputLongitude" class="col-sm-2 col-form-label"><b>Longitud</b></label>
-          <div class="col-sm-10">
-            <input disabled type="text" class="form-control" id="inputLongitude" placeholder="Santiago" />
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="inputPhoto" class="col-sm-2 col-form-label"><b>Foto</b></label>
-          <div class="col-sm-1">
-            <a id="openCamera" class="btn btn-primary btn-md" href="#" data-toggle="modal" data-target="#exampleModal">
-              <i class="fas fa-camera"></i>
-            </a>
-          </div>
-          <div class="col-sm-9">
-            <input readonly type="text" class="form-control" id="inputPhoto" placeholder="base64" />
-          </div>
-        </div>
-        <br />
-        <br />
-        <div class="form-group text-center">
-          <button id="sendForm" class="btn btn-success btn-lg" disabled>
-            Enviar
-          </button>
-          <button id="cancelForm" class="btn btn-danger btn-lg">
-            Cancelar
-          </button>
-        </div>
-      </form>
-    </div>
-  </main>
 
-  <audio id="snapSound" src="snap.wav" preload="auto"></audio>
-  <!-- Modal -->
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="container justify-content-center">
+        <!-- <a id="btnSync" href="" class="btn btn-sm btn-primary">Sincronizar con servidor</a> -->
+        <div class="example" style="margin:auto;max-width:300px">
+          <input id="userInput" type="text" placeholder="Usuario" name="search2">
+          <button id="searchBtn"><i class="fa fa-search"></i></button>
+        </div>
+        <br>
+        <br>
+        <div class="table-responsive">
+        <table class="table table-striped" id="tableForms">
+            <thead>
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Apellido</th>
+                    <th scope="col">Sector</th>
+                    <th scope="col">Nivel escolar</th>
+                    <th scope="col">Usuario</th>
+                    <th scope="col">Foto</th>
+                    <th scope="col">Mapa</th>
+                </tr>
+            </thead>
+            <tbody id="bodyForms">
+            </tbody>
+        </table>
+        </div>
+    </div>
 
-  <div class="center">
-    <div class="modal show-modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+            <h2>Mapa</h2>
+        </div>
+
+        <div class="col-lg-5 ">
+
+            <iframe src="https://maps.google.com/maps?q=0, 0&z=15&output=embed" frameborder="0"
+                style="border:0; width: 100%; height: 290px;" allowfullscreen id="map"></iframe>
+        </div>
+
+
+    </div>
+
+</main><!-- End #main -->
+
+<div class="center">
+  <div class="modal show-modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
       aria-hidden="true">
       <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Foto</h5>
-            <button id="close2" type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Foto</h5>
+                  <button id="close2" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              <div class="modal-body">
+                  <img id="imgtest" src="" alt="">
+              </div>
+              <div class="modal-footer">
+                  <button id="close" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+              </div>
           </div>
-          <div class="modal-body">
-            <video id="camera" style="max-width: 100%; height: auto" autoplay playsinline></video>
-            <img id="imgtest" src="" alt="" style="display: none" />
-            <canvas id="canvas" class="d-none"></canvas>
-          </div>
-          <div class="modal-footer">
-            <button id="close" type="button" class="btn btn-secondary" data-dismiss="modal">
-              Cerrar
-            </button>
-            <button id="retake" type="button" class="btn btn-info" style="display: none">
-              Retomar
-            </button>
-            <button id="savePic" type="button" class="btn btn-success" style="display: none">
-              Guardar
-            </button>
-
-            <button id="photo" type="button" class="btn btn-primary">
-              Tomar foto
-            </button>
-          </div>
-        </div>
       </div>
-    </div>
   </div>
-
+</div>
+  
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
     integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
   </script>
@@ -156,112 +114,9 @@
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
   </script>
   <script src="https://kit.fontawesome.com/156ff56ddf.js" crossorigin="anonymous"></script>
-  <script type="module" src="app.js"></script>
+  <script type="module" src="/js/list.js"></script>
 
-  <script>
-    let id,
-      cantidad = 0;
-    //Indica las opciones para llamar al GPS.
-    const opcionesGPS = {
-      enableHighAccuracy: true,
-      timeout: 5000,
-      maximumAge: 0,
-    };
-
-    $(document).ready(function () {
-      console.log("Ejemplo de Geolocalizacion");
-
-      //Obteniendo la referencia directa.
-      navigator.geolocation.getCurrentPosition(
-        function (geodata) {
-          const coordenadas = geodata.coords;
-          document.getElementById("inputLatitude").value = coordenadas.latitude;
-          document.getElementById("inputLongitude").value = coordenadas.longitude;
-        },
-        function () {
-          $("#posicionGps").text("No permite el acceso del API GEO");
-        },
-        opcionesGPS
-      );
-    });
-
-    document.addEventListener("DOMContentLoaded", () => {
-      const webcamElement = document.getElementById("camera");
-      const canvasElement = document.getElementById("canvas");
-      const snapSoundElement = document.getElementById("snapSound");
-
-      const webcam = new Webcam(
-        webcamElement,
-        "user",
-        canvasElement,
-        snapSoundElement
-      );
-
-      document.getElementById("openCamera").addEventListener("click", () => {
-        webcam
-          .start()
-          .then((result) => {
-            console.log("webcam started");
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      });
-      let picBase64 = "";
-      document.getElementById("photo").addEventListener("click", () => {
-        picBase64 = webcam.snap();
-        document.getElementById("photo").style.display = "none";
-        document.getElementById("retake").style.display = "inline-block";
-        document.getElementById("savePic").style.display = "inline-block";
-
-        document.getElementById("imgtest").setAttribute("src", picBase64);
-        webcamElement.style.display = "none";
-        document.getElementById("imgtest").style.display = "block";
-        console.log(picBase64);
-      });
-
-      document.getElementById("close").addEventListener("click", () => {
-        webcam.stop();
-        document.getElementById("photo").style.display = "inline-block";
-        document.getElementById("retake").style.display = "none";
-        document.getElementById("savePic").style.display = "none";
-        webcamElement.style.display = "block";
-        document.getElementById("imgtest").style.display = "none";
-      });
-
-      document.getElementById("close2").addEventListener("click", () => {
-        webcam.stop();
-        document.getElementById("photo").style.display = "inline-block";
-        document.getElementById("retake").style.display = "none";
-        document.getElementById("savePic").style.display = "none";
-        webcamElement.style.display = "block";
-        document.getElementById("imgtest").style.display = "none";
-      });
-
-      document.getElementById("retake").addEventListener("click", () => {
-        document.getElementById("imgtest").style.display = "none";
-        webcamElement.style.display = "block";
-        document.getElementById("photo").style.display = "inline-block";
-        document.getElementById("retake").style.display = "none";
-        document.getElementById("savePic").style.display = "none";
-      });
-
-      document.getElementById("savePic").addEventListener("click", () => {
-        document.getElementById("inputPhoto").value = picBase64;
-        $("#exampleModal").modal("hide");
-        document.getElementById("imgtest").style.display = "none";
-        webcamElement.style.display = "block";
-        document.getElementById("photo").style.display = "inline-block";
-        document.getElementById("retake").style.display = "none";
-        document.getElementById("savePic").style.display = "none";
-        webcam.stop();
-      });
-
-      document.addEventListener("click", (e) => {
-        console.log(e);
-      });
-    });
-  </script>
+   
 </body>
 
 </html>
