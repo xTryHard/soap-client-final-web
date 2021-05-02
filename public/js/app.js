@@ -42,7 +42,7 @@ sendForm.addEventListener('click', () => {
         latitude: inputLatitude.value,
         longitude: inputLongitude.value,
         user: localStorage.getItem('username'),
-        photoBase64: inputPhoto.value
+        photoBase64: 'test'
     }
     fetch('https://final-soap.theitshop.ninja/forms', {
         method: 'POST',
@@ -50,5 +50,5 @@ sendForm.addEventListener('click', () => {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(form)
-    });
+    }).then((result) => {return result.json()}).then(result => console.log(result)).catch(err => console.log(err));
 });

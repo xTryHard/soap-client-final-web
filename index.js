@@ -7,7 +7,7 @@ const SoapClient = require('./soapClient');
 const fetch = require('node-fetch');
 const cookieParser = require('cookie-parser');
 
-const soapClient = new SoapClient('https://final.theitshop.ninja/ws/FormWebService?wsdl');
+const soapClient = new SoapClient('http://172.31.32.163:7000/ws/FormWebService?wsdl');
 const path = require('path');
 
 app.use(express.static('public'))
@@ -94,8 +94,7 @@ app.get('/forms/:username', async (req, res) => {
 app.post('/forms', (req, res) => {
     console.log("Received:");
     const form = req.body;
-    console.log(form)
-    soapClient.postForm(form);
+    soapClient.postForm(form).then((result) => {res.json(result)});
 });
 
 app.listen(3000, () => {

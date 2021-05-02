@@ -5,8 +5,12 @@ const soap = require('soap');
 class SoapClient {
 
     constructor(url) {
+        const request = require('request');
+        const specialRequest = request.defaults({
+            strictSSL: false
+        });
         this.url = url;
-        this.client = soap.createClientAsync(url);
+        this.client = soap.createClientAsync(url, {request: specialRequest});
     }
 
     // test() {
@@ -18,20 +22,27 @@ class SoapClient {
     // }
 
     getFormsByUsername(username) {
-      return this.client.then((clientReference) => {
+     return this.client.then((clientReference) => {
+	    console.log(clientReference.describe());
+
             return clientReference.getFormsAsync({arg0: username});
         }).then((result) => {
+	    console.log('AQUI');
+	    console.log(result);
             if (result[0] != null) {
-                return result[0].return;
+		return result[0].return;
             }
-        });
+        }).catch(err => console.log(err));
     }
 
     postForm(form) {
-        console.log(form)
-        this.client.then((clientReference) => {
+       
+       console.log('Received at postForm');
+       console.log(form)
+       return this.client.then((clientReference) => {
+	    console.log('DONDE SE FUE TU AMOR PARA BUSCARLO RAPIDO?');
             return clientReference.createFormAsync({arg0: form});
-        }).then(result => {console.log(result)}).catch((err) => console.log(err));
+        }).then(result => {return result}).catch((err) =>{console.log('ERR'); console.log(err)});
     }
 }
 
