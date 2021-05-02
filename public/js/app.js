@@ -44,7 +44,7 @@ sendForm.addEventListener('click', () => {
         user: localStorage.getItem('username'),
         photoBase64: inputPhoto.value
     }
-    fetch('http://localhost:3000/forms', {
+    fetch('https://final-soap.theitshop.ninja/forms', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

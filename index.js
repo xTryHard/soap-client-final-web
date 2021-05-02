@@ -7,7 +7,7 @@ const SoapClient = require('./soapClient');
 const fetch = require('node-fetch');
 const cookieParser = require('cookie-parser');
 
-const soapClient = new SoapClient('http://192.168.0.101:7000/ws/FormWebService?wsdl');
+const soapClient = new SoapClient('https://final.theitshop.ninja/ws/FormWebService?wsdl');
 const path = require('path');
 
 app.use(express.static('public'))
@@ -42,7 +42,7 @@ app.get('/', validate, (req, res) => {
 app.post('/validate-login', async (req, res, next) => {
     const credentials = req.body;
     console.log(credentials)
-    let result = await fetch('http://192.168.0.101:7000/api/v1/login/', {
+    let result = await fetch('https://final.theitshop.ninja/api/v1/login/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

@@ -3,17 +3,17 @@ const userInput = document.getElementById('userInput');
 
 searchBtn.addEventListener('click', async (e) => {
 
-  const forms = await fetch(`http://localhost:3000/forms/${userInput.value}`);
-  const formsObj = await forms.json();
-  fillTable(formsObj);
+    const forms = await fetch(`https://final-soap.theitshop.ninja/forms/${userInput.value}`);
+    const formsObj = await forms.json();
+    fillTable(formsObj);
 
 });
 
 function fillTable(forms) {
 
     const body = document.getElementById("bodyForms");
-    
-    while(body.hasChildNodes()) {
+
+    while (body.hasChildNodes()) {
         body.removeChild(body.firstChild);
     }
 
